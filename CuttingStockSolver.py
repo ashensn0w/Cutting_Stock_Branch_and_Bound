@@ -1,7 +1,7 @@
 import math
 import heapq
 
-class CuttingStockProblem:
+class CuttingStockSolver:
     def __init__(self, stock_length, items):
         self.stock_length = stock_length
         self.items = items
@@ -10,7 +10,7 @@ class CuttingStockProblem:
         self.best_waste = math.inf
     
     def branch_and_bound_solve(self):
-        initial_state = ([0] * self.num_items, self.stock_length, 0, 0, [0] * self.num_items)
+        initial_state = ([0] * self.num_items, int(self.stock_length), 0, 0, [0] * self.num_items)
         heap = []
         heapq.heappush(heap, initial_state)
         
@@ -39,26 +39,15 @@ class CuttingStockProblem:
         
     def print_solution(self):
         if self.best_solution is not None:
-            print("Optimal Solution Found:")
-            for i in range(self.num_items):
-                item_length = self.items[i]
-                cuts = self.best_solution[i]
+            solution_str = "Optimal Solution Found:\n"
+            for i, cuts in enumerate(self.best_solution):
+                item_length = self.items[i]  # Get the item length using the dictionary value at index i
                 if cuts > 0:
-                    print(f"Item {i+1}: Cut {item_length} length {cuts} times")
-            print("Total Waste:", self.best_waste, "length")
+                    item_number = list(self.items.keys())[i]  # Item number is the dictionary key at index i
+                    solution_str += f"Item {item_number + 1}: Cut {item_length} length {cuts} times\n"
+            solution_str += f"Total Waste: {self.best_waste} length"
+            return solution_str
         else:
-            print("No feasible solution found.")
+            return "No feasible solution found."
 
-# Example usage:
-if __name__ == "__main__":
-    stock_length = int(input("Enter the stock length: "))
-    num_items = int(input("Enter the number of items: "))
-    items = []
-    for i in range(num_items):
-        item = int(input("Enter the length to be cut for demand " + str(i+1) + ": "))
-        items.append(item)
 
-    items = sorted(items, reverse=True)
-    problem = CuttingStockProblem(stock_length, items)
-    problem.branch_and_bound_solve()
-    problem.print_solution()
