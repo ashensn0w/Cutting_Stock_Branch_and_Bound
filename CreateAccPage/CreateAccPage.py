@@ -49,7 +49,7 @@ class CreateAccPage(Frame):
         # create account button
         self.button_imgCreateAcc = PhotoImage(file=self.relative_to_assets("createAcc.png"))
         button_CreateAcc = Button(self, image=self.button_imgCreateAcc, borderwidth=0, highlightthickness=0,
-                               command=lambda: self.create_account(), relief="flat")
+                               command=lambda: self.create_account(controller), relief="flat")
         button_CreateAcc.place(x=117.0, y=441.0, width=162.0, height=36.0)
         
         # creating the back button
@@ -97,7 +97,7 @@ class CreateAccPage(Frame):
             messagebox.showerror("Error", f"Error checking username existence: {error}")
             return False
 
-    def create_account(self):
+    def create_account(self, controller):
         username = self.username.get()
         password = self.newPassword.get()
         confirm_password = self.confirmPassword.get()
@@ -132,4 +132,5 @@ class CreateAccPage(Frame):
             messagebox.showerror("Error", f"Error saving account: {error}")
         finally:
             connection.close()
+            controller.show_frame("SignInPage")
 

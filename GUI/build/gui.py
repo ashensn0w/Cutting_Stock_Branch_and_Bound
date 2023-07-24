@@ -39,7 +39,7 @@ image_image_1 = PhotoImage(
     file=relative_to_assets("image_1.png"))
 image_1 = canvas.create_image(
     197.0,
-    285.0,
+    301.0,
     image=image_image_1
 )
 
@@ -129,10 +129,10 @@ button_2 = Button(
     relief="flat"
 )
 button_2.place(
-    x=34.0,
-    y=22.0,
-    width=26.0,
-    height=26.0
+    x=35.0,
+    y=35.0,
+    width=77.0,
+    height=22.0
 )
 window.resizable(False, False)
 window.mainloop()

@@ -101,7 +101,7 @@ class SignInPage(Frame):
 
             messagebox.showinfo("Success", "Login successful!")
             cursor.close()
-            controller.show_frame("StartPage")
+            controller.show_frame("ComputeCutsPage")
 
             # Perform any actions needed after successful login (e.g., navigate to a new page)
             # For example, you can call the method to navigate to a new page like this:
