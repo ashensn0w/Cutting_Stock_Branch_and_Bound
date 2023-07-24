@@ -38,13 +38,33 @@ class CreateAccPage(Frame):
         self.entry_newPassword = Entry(self, textvariable=self.newPassword, bd=0, bg="#98C1D9", fg="#000716", highlightthickness=0)
         self.entry_newPassword.place(x=49.0, y=281.0, width=298.0, height=50.0)\
             
+        # show new password bool
+        self.isNewPassShown = BooleanVar(value=False)
+        self.entry_newPassword.config(show="*")
+        
+        # show new password button
+        self.button_imgShowNewPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+        self.button_ShowNewPass = Button(self, image=self.button_imgShowNewPass, borderwidth=0, highlightthickness=0,
+                                command=self.toggle_password_visibility_new_pass, relief="flat")
+        self.button_ShowNewPass.place(x=329.0, y=298.0, width=18.0, height=18.0)
+        
         # confirm password entry
         self.confirmPassword = StringVar()
         self.entry_imgConfirmPassword = PhotoImage(file=self.relative_to_assets("entry.png"))
         self.entry_img = Label(self, image=self.entry_imgConfirmPassword, bg="#E0FBFC")
         self.entry_img.place(x=37, y=361)
-        self.entry_cpnfirmPassword = Entry(self, textvariable=self.confirmPassword, bd=0, bg="#98C1D9", fg="#000716", highlightthickness=0)
-        self.entry_cpnfirmPassword.place(x=49.0, y=364.0, width=298.0, height=50.0)
+        self.entry_confirmPassword = Entry(self, textvariable=self.confirmPassword, bd=0, bg="#98C1D9", fg="#000716", highlightthickness=0)
+        self.entry_confirmPassword.place(x=49.0, y=364.0, width=298.0, height=50.0)
+        
+        # show confirm password bool
+        self.isConfirmPassShown = BooleanVar(value=False)
+        self.entry_confirmPassword.config(show="*")
+        
+        # show confirm password button
+        self.button_imgShowConfirmPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+        self.button_ShowConfirmPass = Button(self, image=self.button_imgShowConfirmPass, borderwidth=0, highlightthickness=0,
+                                command=self.toggle_password_visibility_confirm_pass, relief="flat")
+        self.button_ShowConfirmPass.place(x=329.0, y=381.0, width=18.0, height=18.0)
         
         # create account button
         self.button_imgCreateAcc = PhotoImage(file=self.relative_to_assets("createAcc.png"))
@@ -133,4 +153,41 @@ class CreateAccPage(Frame):
         finally:
             connection.close()
             controller.show_frame("SignInPage")
+
+    def toggle_password_visibility_new_pass(self):
+        # Get the current show password state
+        current_state = self.isNewPassShown.get()
+
+        if current_state:
+            # If the password is currently shown, hide it
+            self.entry_newPassword.config(show="*")
+            self.isNewPassShown.set(False)
+            self.button_imgShowNewPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+            self.button_ShowNewPass.config(image=self.button_imgShowNewPass)
+            
+        else:
+            # If the password is currently hidden, show it
+            self.entry_newPassword.config(show="")
+            self.isNewPassShown.set(True)
+            self.button_imgHideNewPass = PhotoImage(file=self.relative_to_assets("hidePass.png"))
+            self.button_ShowNewPass.config(image=self.button_imgHideNewPass)
+
+    def toggle_password_visibility_confirm_pass(self):
+        # Get the current show password state
+        current_state = self.isConfirmPassShown.get()
+
+        if current_state:
+            # If the password is currently shown, hide it
+            self.entry_confirmPassword.config(show="*")
+            self.isConfirmPassShown.set(False)
+            self.button_imgShowConfirmPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+            self.button_ShowConfirmPass.config(image=self.button_imgShowConfirmPass)
+            
+        else:
+            # If the password is currently hidden, show it
+            self.entry_confirmPassword.config(show="")
+            self.isConfirmPassShown.set(True)
+            self.button_imgHideConfirmPass = PhotoImage(file=self.relative_to_assets("hidePass.png"))
+            self.button_ShowConfirmPass.config(image=self.button_imgHideConfirmPass)
+
 

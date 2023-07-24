@@ -38,6 +38,16 @@ class SignInPage(Frame):
         self.entry_password = Entry(self, textvariable=self.password, bd=0, bg="#98C1D9", fg="#000716", highlightthickness=0)
         self.entry_password.place(x=49.0, y=317.0, width=298.0, height=50.0)
         
+        # Show password state variable
+        self.show_password = BooleanVar(value=False)
+        self.entry_password.config(show="*")
+
+        # Show password button
+        self.button_imgShowPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+        self.show_pass_button = Button(self, image=self.button_imgShowPass, borderwidth=0, highlightthickness=0,
+                                       command=self.toggle_password_visibility, relief="flat")
+        self.show_pass_button.place(x=327.0, y=334.0, width=18.0, height=18.0)
+        
         # creating the sign in account button
         self.button_imgSignIn = PhotoImage(file=self.relative_to_assets("signIn.png"))
         button_SignIn = Button(self, image=self.button_imgSignIn, borderwidth=0, highlightthickness=0,
@@ -70,6 +80,27 @@ class SignInPage(Frame):
             print("Error while connecting to MySQL", error)
             return None
 
+    def toggle_password_visibility(self):
+        # Get the current show password state
+        current_state = self.show_password.get()
+
+        if current_state:
+            # If the password is currently shown, hide it
+            self.entry_password.config(show="*")
+            self.show_password.set(False)
+            self.button_imgShowPass = PhotoImage(file=self.relative_to_assets("showPass.png"))
+            self.show_pass_button.config(image=self.button_imgShowPass)
+            
+        else:
+            # If the password is currently hidden, show it
+            self.entry_password.config(show="")
+            self.show_password.set(True)
+            self.button_imgHidePass = PhotoImage(file=self.relative_to_assets("hidePass.png"))
+            self.show_pass_button.config(image=self.button_imgHidePass)
+
+
+
+
     def login(self, controller):
         username = self.username.get()
         password = self.password.get()
@@ -101,7 +132,7 @@ class SignInPage(Frame):
 
             messagebox.showinfo("Success", "Login successful!")
             cursor.close()
-            controller.show_frame("ComputeCutsPage")
+            controller.show_frame("ComputeCutsPage", username)
 
             # Perform any actions needed after successful login (e.g., navigate to a new page)
             # For example, you can call the method to navigate to a new page like this:

@@ -23,12 +23,12 @@ class MainFrame(Tk):
         self.container.grid_columnconfigure(0, weight=1)
         
         # calling the first screen
-        self.show_frame("ComputeCutsPage")
+        self.show_frame("StartPage")
         
         
      # showing the current frame above everything
-    def show_frame(self, page_name, name=None):
-        self.name = name
+    def show_frame(self, page_name, username=None):
+        self.username = username
 
         # converting the page_name str into class
         f = getattr(sys.modules[__name__], page_name)
