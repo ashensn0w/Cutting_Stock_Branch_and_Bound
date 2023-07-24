@@ -68,8 +68,6 @@ class ComputeCutsPage(Frame):
         self.entry_output = scrolledtext.ScrolledText(self, wrap="word", bd=0, bg="#98C1D9", fg="#000716", highlightthickness=0)
         self.entry_output.place(x=47.0, y=404.0, width=298.0, height=80.0)
         self.entry_output.config(font=input_font)
-        self.entry_output.config(state="disabled")
-
 
 
     # function for the right path
