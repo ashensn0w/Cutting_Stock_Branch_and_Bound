@@ -58,5 +58,5 @@ class MainFrame(Tk):
 
 # Initialize the main window app
 window = MainFrame()
-window.title("Cutting Stock Converter")
+window.title("Cutting Stock Solver")
 window.mainloop()
